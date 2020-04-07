@@ -1,0 +1,3 @@
+deployer: "ubuntu"
+servers:
+  - "18.189.20.63"
