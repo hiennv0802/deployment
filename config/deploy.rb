@@ -17,7 +17,15 @@ set :keep_releases, 5
 set :rvm_type, :user
 set :settings, YAML.load_file("config/deploy/settings.yml")
 
+# namespace :deploy do
+#   after :publishing, "deploy:restart"
+#   after :finishing, "deploy:cleanup"
+# end
+
+after "deploy:publishing", "deploy:restart"
+
 namespace :deploy do
-  after :publishing, "deploy:restart"
-  after :finishing, "deploy:cleanup"
+  task :restart do
+    invoke "puma:restart"
+  end
 end
