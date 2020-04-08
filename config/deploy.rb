@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.12.1"
+lock "~> 3.13.0"
 
 set :application, "deployment"
 set :repo_url, "git@github.com:hiennv0802/deployment.git"
@@ -17,15 +17,7 @@ set :keep_releases, 5
 set :rvm_type, :user
 set :settings, YAML.load_file("config/deploy/settings.yml")
 
-# namespace :deploy do
-#   after :publishing, "deploy:restart"
-#   after :finishing, "deploy:cleanup"
-# end
-
-after "deploy:publishing", "deploy:restart"
-
 namespace :deploy do
-  task :restart do
-    invoke "puma:restart"
-  end
+  after :publishing, "deploy:restart"
+  after :finishing, "deploy:cleanup"
 end
